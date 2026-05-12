@@ -1,4 +1,4 @@
-# Password Strength Checker
+# Password Strength Analyzer
 
 A defensive password strength checker built with Flask for a cybersecurity and web development portfolio. The app evaluates a submitted password using entropy analysis, rule-based pattern detection, and optional breach-list lookups — without ever storing or logging what is entered.
 
