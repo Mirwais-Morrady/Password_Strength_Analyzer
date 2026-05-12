@@ -1,6 +1,6 @@
 # Password Strength Analyzer
 
-A defensive password strength checker built with Flask for a cybersecurity and web development portfolio. The app evaluates a submitted password using entropy analysis, rule-based pattern detection, and optional breach-list lookups — without ever storing or logging what is entered.
+A defensive password strength checker built with Flask for a cybersecurity and web development portfolio. The app evaluates a submitted password using entropy analysis, rule-based pattern detection, and optional breach-list lookups, without ever storing or logging what is entered.
 
 **Live Demo:** https://password-strength-web-qf0n.onrender.com
 
@@ -14,7 +14,7 @@ A defensive password strength checker built with Flask for a cybersecurity and w
 |---|---|
 | **Entropy scoring** | Uses the zxcvbn library to score password strength based on entropy and pattern recognition |
 | **Rule-based checks** | Flags weak patterns: short length, missing character types, repeated characters, keyboard runs, and sequential strings |
-| **Breach check (optional)** | Queries the Have I Been Pwned API using k-anonymity — the full password is never sent to the API |
+| **Breach check (optional)** | Queries the Have I Been Pwned API using k-anonymity; the full password is never sent to the API |
 | **Common-password check** | Checks the submitted password against the RockYou breach wordlist loaded into memory at startup |
 | **Rate limiting** | Caps the `/check` endpoint at 10 requests per minute per IP using Flask-Limiter |
 | **Security headers** | Sets CSP, X-Frame-Options, Referrer-Policy, and Permissions-Policy on every response |
@@ -47,7 +47,7 @@ password_project/
 │   └── templates/
 │       └── index.html    # main page
 ├── data/
-│   └── rockyou.txt       # common-password wordlist (not bundled — see Setup)
+│   └── rockyou.txt       # common-password wordlist (not bundled, see Setup)
 └── app.py                # entry point for local development
 ```
 
@@ -66,7 +66,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Download the RockYou wordlist (optional — the app works without it):
+3. Download the RockYou wordlist (optional, the app works without it):
 ```bash
 # from the SecLists mirror
 curl -L -o data/rockyou.txt \
@@ -76,7 +76,7 @@ curl -L -o data/rockyou.txt \
 cp /usr/share/wordlists/rockyou.txt data/rockyou.txt
 ```
 
-> **Memory note:** RockYou has over 14 million entries. Loading it as a Python set can use several hundred MB of RAM — use a smaller wordlist if memory is constrained.
+> **Memory note:** RockYou has over 14 million entries. Loading it as a Python set can use several hundred MB of RAM; use a smaller wordlist if memory is constrained.
 
 ---
 
@@ -122,7 +122,7 @@ Response:
 }
 ```
 
-**GET `/healthz`** — Returns app version and whether HIBP checking is active.
+**GET `/healthz`**, returns app version and whether HIBP checking is active.
 
 ---
 
@@ -134,7 +134,7 @@ Response:
 | **Start command** | `gunicorn -b 0.0.0.0:$PORT "app:create_app()"` |
 | `HIBP_ENABLED` | `false` (or `true` to enable breach check) |
 | `SECRET_KEY` | Generate with `python3 -c "import secrets; print(secrets.token_hex(32))"` |
-| `ROCKYOU_PATH` | Optional — leave unset if not deploying the wordlist |
+| `ROCKYOU_PATH` | Optional, leave unset if not deploying the wordlist |
 
 Verify the deployment is up:
 ```bash
@@ -148,7 +148,7 @@ curl -X POST https://<your-app>.onrender.com/check \
 
 ## Security Notes
 
-- Passwords are processed in memory only — nothing is logged or stored at any point.
+- Passwords are processed in memory only; nothing is logged or stored at any point.
 - The HIBP breach check uses k-anonymity: only the first 5 characters of the SHA-1 hash are sent to the API, so the full hash and the original password never leave the server.
 - All requests larger than 2KB are rejected before any evaluation takes place.
 - Rate limiting is enforced at the route level, not middleware, so it applies only to the `/check` endpoint.
