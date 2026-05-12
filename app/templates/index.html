@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Password Strength Checker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <h1>Password Strength Checker</h1>
+      <p class="disclaimer">Local educational tool. Don’t enter real passwords.</p>
+      <p class="disclaimer">Passwords are processed in memory and never stored.</p>
+    </header>
+
+    <section class="card">
+      <div class="field">
+        <label for="password">Password to evaluate</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter a test password"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="actions">
+        <button id="checkBtn" type="button">Check</button>
+        <label class="toggle">
+          <input id="breachToggle" type="checkbox" />
+          <span>Check breached passwords (k-anonymity)</span>
+        </label>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div class="meter">
+        <div id="meterFill" class="meter-fill"></div>
+      </div>
+      <div id="scoreLabel" class="score-label"></div>
+
+      <div class="results">
+        <div>
+          <h3>Feedback</h3>
+          <ul id="feedbackList"></ul>
+        </div>
+        <div>
+          <h3>Warnings</h3>
+          <ul id="warningList"></ul>
+        </div>
+      </div>
+
+      <div class="meta">
+        <p id="commonPassword"></p>
+        <p id="breachedResult"></p>
+      </div>
+
+      <div class="crack-times">
+        <h3>Estimated crack times (zxcvbn)</h3>
+        <ul id="crackTimes"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
